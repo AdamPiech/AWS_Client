@@ -75,6 +75,7 @@ button.leftAl{
 
 .btn-warning {
     background-color: #ffc107;
+    text-shadow: 2px 2px 4px #212121;
 }
 
 .btn-warning:hover {
