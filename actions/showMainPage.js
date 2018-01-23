@@ -18,7 +18,7 @@ var task = function(request, callback){
 
 	fields = s3Form.addS3CredientalsFields(fields, awsConfig);
 	
-	getImages("photos/", function(err, images) {
+	getImages("", function(err, images) {
 		if(err) {
 			return console.log(err);
 		}
