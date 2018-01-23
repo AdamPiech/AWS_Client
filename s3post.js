@@ -81,5 +81,3 @@ var hiddenField = function(fieldName, value) {
 
 exports.Policy = Policy;
 exports.S3Form = S3Form;
-
-

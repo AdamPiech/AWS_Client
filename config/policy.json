@@ -2,7 +2,7 @@
 	"conditions": [ ["starts-with", "$key", "photos/"],
     				 {"bucket": "photoviewerstore"},
     				 {"acl": "public-read"},
-    				 {"success_action_redirect": "https://s3-us-west-2.amazonaws.com/awspsoir/Success.html"},
+    				 {"success_action_redirect": "http://clientlb-1799782467.us-west-2.elb.amazonaws.com/"},
 					 {"x-amz-meta-Author": "Adam Piech"},
     				 ["content-length-range", 0, 1048576]
     				]
