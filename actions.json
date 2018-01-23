@@ -1,5 +1,4 @@
 [
 	{"path":"/","action":"showMainPage"},
-	{"path":"/alter", "action": "alterImages"},
-	{"path":"/modifiedImages", "action": "showModifiedImages"}
+	{"path":"/alter", "action": "alterImages"}
 ]

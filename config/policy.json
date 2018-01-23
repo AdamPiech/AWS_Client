@@ -1,5 +1,5 @@
 {	"expiration" : {"day":1},
-	"conditions": [ ["starts-with", "$key", "uploadedImages/"],
+	"conditions": [ ["starts-with", "$key", "photos/"],
     				 {"bucket": "photoviewerstore"},
     				 {"acl": "public-read"},
     				 {"success_action_redirect": "https://s3-us-west-2.amazonaws.com/awspsoir/Success.html"},
