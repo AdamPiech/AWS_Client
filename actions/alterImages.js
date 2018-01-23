@@ -4,19 +4,31 @@ var AWS = require("aws-sdk");
 var _ = require("lodash");
 var async = require("async");
 
-
 AWS.config.loadFromPath('config/config.json');
 var sqs = new AWS.SQS();
 
 var task =  function(request, callback){
 
-    if(!request.body.keys) 
-		return callback(null, {template: "notification.ejs", params: {state:err, "err": 'No images selected'}});
+    if(!request.body.keys) {
+        return callback(null, {
+            template: "notification.ejs", 
+            params: {
+                state: err, 
+                "err": 'No images selected'
+            }
+        });
+    }
 
     var reqArr = request.body.keys.toString().split(',');
-	if(reqArr.length > 10) 
-		return callback(null, {template: "notification.ejs", params: {state: "err", err: 'Cannot send more than 10 images at once'}});
-
+	if(reqArr.length > 10) {
+		return callback(null, {
+            template: "notification.ejs", 
+            params: {
+                state: "err", 
+                err: 'Cannot send more than 10 images at once'
+            }
+        });
+    }
 
     var entries = _.map(reqArr, function (key, index) {
         return {
@@ -30,29 +42,47 @@ var task =  function(request, callback){
         }
     });
 	
-
     var params = {
         QueueUrl: 'https://sqs.us-west-2.amazonaws.com/211653061305/PhotoViewerSQS',
         Entries: entries
     };
+
 	console.log("Entries length: " + entries.length);
     sqs.sendMessageBatch(params, function(err, data) {
         if (err) {
             console.log(err, err.stack);
-            return callback(null, {template: "notification.ejs", params: {state: "err", err: err}});
+            return callback(null, {
+                template: "notification.ejs", 
+                params: {
+                    state: "err", 
+                    err: err
+                }
+            });
         }
         else {
             console.log(data);
-            if(data.Failed.length === 0)
-			{
-                return callback(null, {template: "notification.ejs", params: {state: "sucess", err: null}});
+            if(data.Failed.length === 0) {
+                return callback(null, {
+                    template: "notification.ejs", 
+                    params: {
+                        state: "sucess", 
+                        err: null
+                    }
+                });
             } 
 			else 
 			{
-                return callback(null, {template: "notification.ejs", params: {state: "err", err: "Message Failed"}});
+                return callback(null, {
+                    template: "notification.ejs", 
+                    params: {
+                        state: "err", 
+                        err: "Message Failed"
+                    }
+                });
             }
         }
     });
+    
 };
 
 exports.action = task;

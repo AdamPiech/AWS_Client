@@ -2,7 +2,6 @@ var fs = require('fs');
 var crypto = require('crypto');
 var async = require("async");
 
-
 var hmac = function(algorithm, key, text, encoding) {
 	var hmac = crypto.createHmac(algorithm, key);
 	return hmac.update(new Buffer(text)).digest(encoding);

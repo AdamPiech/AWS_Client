@@ -2,14 +2,14 @@ var express = require("express");
 var bodyParser = require("body-parser");
 
 var sendFile = function(path) {
-    return function(request, callback){
+    return function(request, callback) {
         callback(null, null, path);
     }
 }
 
 var service = function(requestProcessors){
+    
     var app = express();
-
     app.use(bodyParser.urlencoded({
         extended: true,
         limit: 5242880,
@@ -23,7 +23,7 @@ var service = function(requestProcessors){
     app.use(express.static("public", {maxAge: 31557600000}));
 
     var handlers = {};
-    for(var i = 0; i < requestProcessors.length; i ++){
+    for(var i = 0; i < requestProcessors.length; i++) {
         var path = requestProcessors[i].path;
         var action = requestProcessors[i].action;
         if(handlers[path]) {
@@ -33,12 +33,12 @@ var service = function(requestProcessors){
         handlers[path] = action;
     }
 
-    Object.keys(handlers).forEach(function(key){
-        app.all(key, function(request, response){
+    Object.keys(handlers).forEach(function(key) {
+        app.all(key, function(request, response) {
             console.log("request processing started");
-            handlers[key](request, function(err, result, file){
-                if(file){
-                    if(file.template){
+            handlers[key](request, function(err, result, file) {
+                if(file) {
+                    if(file.template) {
                         renderView(response, file.template, file.params);
                     } else {
                         response.sendfile(file);
@@ -46,11 +46,11 @@ var service = function(requestProcessors){
                 }
                 else if(err) {
                     response.send("an error occured " + err);
-                }else {
+                } else {
                     var reqResponse = result ? result : "";
-                    if(reqResponse.template){
+                    if(reqResponse.template) {
                         renderView(response, reqResponse.template, reqResponse.params);
-                    }else {
+                    } else {
                         response.send(reqResponse);
                     }
                 }
@@ -59,12 +59,12 @@ var service = function(requestProcessors){
         });
     });
 
-    return function(port){
+    return function(port) {
         app.listen(port);
     }
 }
 
-var renderView = function(response, template, params){
+var renderView = function(response, template, params) {
     response.render(template, params);
 }
 exports.http = service;
