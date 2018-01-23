@@ -73,6 +73,10 @@ button.leftAl{
     margin-left: 0;
 }
 
+.btn {
+    text-shadow: 2px 2px 4px #212121;
+}
+
 .btn-warning {
     background-color: #ffc107;
     text-shadow: 2px 2px 4px #212121;
@@ -81,6 +85,7 @@ button.leftAl{
 .btn-warning:hover {
     background-color: #f57c00;
     box-shadow: 2px 2px 4px #212121;
+    text-shadow: 2px 2px 4px #212121;
 }
 
 #footer {
