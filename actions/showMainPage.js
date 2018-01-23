@@ -23,7 +23,7 @@ var task = function(request, callback){
 			return console.log(err);
 		}
 		callback(null, {
-			template: TEMPLATE, 
+			template: INDEX_TEMPLATE, 
 			params: {
 				fields: fields, 
 				bucket: bucketname, 
