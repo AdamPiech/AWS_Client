@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width = device-width, initial-	scale = 1">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="webStyle.css">
+	<link href="style.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<title>Dashboard</title>
+	<script>
+		$(document).ready(function () {
+			$(function(){
+            $("#nav").load("nav.html");
+			});
+
+		});
+		function checkFile()
+		{
+			if(document.getElementById("pictureFileUpload").files.length == 0)
+				return false;
+			return true;
+		}
+    </script>
+</head>
+<body>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="nav"></nav>
+	<div class="container-fluid content">
+		<div class="alert alert-danger" style="display:none;" id="errAlert">
+			<strong><span id="errText">Error!</span></strong>
+		</div>
+		<div class="row">
+			<div class = "col-sm-12 container-fluid panel panel-default text-center">
+				<div class="panel-heading" id="headingMain">
+					<h4>Galeria</h4>
+				</div>
+				<div class="panel-body" style="text-align:center">
+					<form action="/alter" method="POST" onsubmit="return checkImageForm()">
+						<div style="margin-bottom: 10px;">
+							<label>
+								<h5>Operacja:</h5>
+								<select class="form-control" name="option" >
+									<option value="grey scale">skala szarośc</option>
+									<option value="invert">inwersja</option>
+									<option value="sepia">sepia</option>
+									<option value="blur">rozmycie</option>
+									<option value="remove">usuń</option>
+								</select>
+							</label>
+							<input type="submit" class="btn btn-warning" value="Wykonaj"/>
+						</div>
+						<% images.forEach(function(image){ %>
+							<div class="thumbnail">
+								<a href="<%= image.link %>">
+									<img src="<%= image.link %>" alt="<%= image.key %>">
+								</a>
+							</div>
+						<% }) %>
+					</form>
+				</div>
+			</div>
+		</div>		
+	</div>
+	<footer class="container-fluid text-center" id="footer" style="margin-top:20px;">
+		<span style="style=vertical-align:middle"><h5>Adam Piech & AWS</h5></span>
+	</footer>	
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
